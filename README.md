@@ -11,37 +11,29 @@ A high-performance URL shortener service built with Go, using Base62 encoding an
 
   
 
--  [Features](#-features)
+-  [Features](#Features)
 
--  [Architecture](#-architecture)
+-  [Architecture](#Architecture)
 
--  [Technology Stack](#-technology-stack)
+-  [Technology Stack](#Technology-Stack)
 
--  [Prerequisites](#-prerequisites)
+-  [Installation](#Installation)
 
--  [Installation](#-installation)
+-  [Configuration](#Configuration)
 
--  [Configuration](#-configuration)
+-  [Running the Service](#Running-The-Server)
 
--  [Running the Service](#-running-the-service)
+-  [API Documentation](#Api-Documentation)
 
--  [API Documentation](#-api-documentation)
+-  [Database Schema](#Database-Schema)
 
--  [Usage Examples](#-usage-examples)
+-  [How It Works](#How-It-Works)
 
--  [Database Schema](#-database-schema)
-
--  [How It Works](#-how-it-works)
-
--  [Development](#-development)
-
--  [Troubleshooting](#-troubleshooting)
-
--  [License](#-license)
+-  [Development](#Development)
 
   
 
-## ✨ Features
+## Features
 
   
 
@@ -65,7 +57,7 @@ A high-performance URL shortener service built with Go, using Base62 encoding an
 
   
 
-## 🏗️ Architecture
+## Architecture
 
   
 
@@ -143,7 +135,7 @@ The service uses a simple but effective architecture:
 
   
 
-## 🛠️ Technology Stack
+## Technology Stack
 
   
 
@@ -163,7 +155,7 @@ The service uses a simple but effective architecture:
 
   
 
-## 📦 Prerequisites
+## Prerequisites
 
   
 
@@ -179,7 +171,7 @@ Before running this service, ensure you have:
 
   
 
-## 🚀 Installation
+## Installation
 
   
 
@@ -239,7 +231,7 @@ CREATE  DATABASE  urlshortener;
 
   
 
-## ⚙️ Configuration
+## Configuration
 
   
 
@@ -247,7 +239,7 @@ CREATE  DATABASE  urlshortener;
 
   
 
-Create or update the `.env` file in the project root:
+Create and then Update the `.env` file in the project root:
 
   
 
@@ -305,7 +297,7 @@ postgres://user:pass@prod-db.example.com:5432/urlshortener?sslmode=require
 
   
 
-## 🏃 Running the Service
+## Running the Server
 
   
 
@@ -379,7 +371,7 @@ The server will start on `http://localhost:8080`
 
   
 
-## 📚 API Documentation
+## API Documentation
 
   
 
@@ -599,163 +591,7 @@ GET /api/stats/3dE
 
   
 
-## 💡 Usage Examples
-
-  
-
-### Using cURL
-
-  
-
-**Create a short URL:**
-
-```bash
-
-curl  -X  POST  http://localhost:8080/shorten \
-
--H "Content-Type: application/json" \
-
--d  '{"url":"https://github.com/your-username/your-repo"}'
-
-```
-
-  
-
-**Get URL stats:**
-
-```bash
-
-curl  http://localhost:8080/api/stats/3dE
-
-```
-
-  
-
-**Test redirect (with verbose output):**
-
-```bash
-
-curl  -L  -v  http://localhost:8080/3dE
-
-```
-
-  
-
-### Using JavaScript (Fetch API)
-
-  
-
-```javascript
-
-// Create short URL
-
-async  function  shortenURL(longUrl)  {
-
-const  response  =  await  fetch('http://localhost:8080/shorten',  {
-
-method:  'POST',
-
-headers:  {
-
-'Content-Type':  'application/json',
-
-},
-
-body:  JSON.stringify({ url:  longUrl  }),
-
-});
-
-const  data  =  await  response.json();
-
-console.log('Short URL:',  data.short_url);
-
-return  data;
-
-}
-
-  
-
-// Get URL stats
-
-async  function  getStats(shortCode)  {
-
-const  response  =  await  fetch(`http://localhost:8080/api/stats/${shortCode}`);
-
-const  data  =  await  response.json();
-
-console.log('URL Info:',  data);
-
-return  data;
-
-}
-
-  
-
-// Usage
-
-shortenURL('https://example.com/long/url');
-
-getStats('3dE');
-
-```
-
-  
-
-### Using Python (requests)
-
-  
-
-```python
-
-import requests
-
-  
-
-# Create short URL
-
-def  shorten_url(long_url):
-
-response = requests.post(
-
-'http://localhost:8080/shorten',
-
-json={'url': long_url}
-
-)
-
-data = response.json()
-
-print(f"Short URL: {data['short_url']}")
-
-return data
-
-  
-
-# Get URL stats
-
-def  get_stats(short_code):
-
-response = requests.get(f'http://localhost:8080/api/stats/{short_code}')
-
-data = response.json()
-
-print(f"URL Info: {data}")
-
-return data
-
-  
-
-# Usage
-
-shorten_url('https://example.com/long/url')
-
-get_stats('3dE')
-
-```
-
-  
-
-## 🗄️ Database Schema
+## Database Schema
 
   
 
@@ -805,7 +641,7 @@ CREATE  INDEX  IF  NOT  EXISTS idx_short_code ON urls(short_code);
 
   
 
-## 🔍 How It Works
+## How It Works
 
   
 
@@ -903,7 +739,7 @@ The service uses Base62 encoding to convert sequential database IDs into short c
 
   
 
-## 🔧 Development
+## Development
 
   
 
@@ -951,168 +787,12 @@ Common enhancements you might want to add:
 
 -  **QR Codes**: Generate QR codes for short URLs
 
-  
-  
 
-## 🐛 Troubleshooting
-
-  
-
-### Common Issues
-
-  
-
-**Database Connection Failed:**
-
-```
-
-Failed to connect to database: connection refused
-
-```
-
-**Solution:** Ensure PostgreSQL is running and connection string is correct.
-
-  
-
-```bash
-
-# Check if PostgreSQL is running
-
-sudo  systemctl  status  postgresql
-
-  
-
-# Start PostgreSQL
-
-sudo  systemctl  start  postgresql
-
-```
-
-  
-
-**Port Already in Use:**
-
-```
-
-bind: address already in use
-
-```
-
-**Solution:** Change the port in `server.go` or kill the process using port 8080.
-
-  
-
-```bash
-
-# Find process using port 8080
-
-lsof  -i  :8080
-
-  
-
-# Kill the process
-
-kill  -9  <PID>
-
-```
-
-  
-
-**Module Not Found:**
-
-```
-
-package github.com/labstack/echo/v4: cannot find package
-
-```
-
-**Solution:** Run `go mod download` to install dependencies.
-
-  
-
-**Database Schema Not Created:**
-
-```
-
-relation "urls" does not exist
-
-```
-
-**Solution:** The schema is auto-created on startup. Check database permissions.
-
-  
-
-### Logging
-
-  
-
-The service logs important events:
-
-  
-
-- ✅ Database connected successfully
-
-- ✅ Database schema initialized
-
-- 🚀 Server starting on http://localhost:8080
-
-- HTTP request logs (via Echo middleware)
-
-- Error logs for failed operations
-
-  
-
-### Debug Mode
-
-  
-
-Enable verbose logging by modifying the Echo logger:
-
-  
-
-```go
-
-e.Logger.SetLevel(log.DEBUG)
-
-```
-
-  
-
-## 📄 License
-
+---
   
 
 This project is open source and available under the [MIT License](LICENSE).
 
-  
-
-## 🤝 Contributing
-
-  
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-  
-
-1. Fork the repository
-
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-
-4. Push to the branch (`git push origin feature/amazing-feature`)
-
-5. Open a Pull Request
-
-  
-
-## 📧 Support
-
-  
-
-If you have any questions or run into issues, please open an issue on GitHub.
-
-  
 
 ---
 
