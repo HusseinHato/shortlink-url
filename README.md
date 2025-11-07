@@ -67,67 +67,67 @@ The service uses a simple but effective architecture:
 
 ```
 
-┌─────────────┐
+            ┌─────────────┐
 
-│ Client │
+            │ Client      │
 
-└──────┬──────┘
+            └──────┬──────┘
 
-│
+                   │
 
-▼
+                   ▼
 
 ┌─────────────────────────────────┐
 
-│ Echo Web Framework │
+│ Echo Web Framework              │
 
-│ ┌──────────────────────────┐ │
+│ ┌──────────────────────────┐    │
 
-│ │ POST /shorten │ │
+│ │ POST /shorten            │    │
 
-│ │ GET /:shortCode │ │
+│ │ GET /:shortCode          │    │
 
-│ │ GET /api/stats/:code │ │
+│ │ GET /api/stats/:code     │    │
 
-│ │ GET /health │ │
+│ │ GET /health              │    │
 
-│ └──────────────────────────┘ │
+│ └──────────────────────────┘    │
 
 └────────────┬────────────────────┘
 
-│
+             │
 
-▼
+             ▼
 
 ┌─────────────────────────────────┐
 
-│ Base62 Encoder │
+│ Base62 Encoder                  │
 
-│ (ID → Short Code Conversion) │
+│ (ID → Short Code Conversion)    │
 
 └────────────┬────────────────────┘
 
-│
+             │
 
-▼
+             ▼
 
 ┌─────────────────────────────────┐
 
-│ PostgreSQL Database │
+│ PostgreSQL Database             │
 
-│ ┌───────────────────────────┐ │
+│ ┌───────────────────────────┐   │
 
-│ │ urls table │ │
+│ │ urls table                │   │
 
-│ │ - id (SERIAL) │ │
+│ │ - id (SERIAL)             │   │
 
-│ │ - short_code (UNIQUE) │ │
+│ │ - short_code (UNIQUE)     │   │
 
-│ │ - original_url │ │
+│ │ - original_url            │   │
 
-│ │ - created_at │ │
+│ │ - created_at              │   │
 
-│ └───────────────────────────┘ │
+│ └───────────────────────────┘   │
 
 └─────────────────────────────────┘
 
