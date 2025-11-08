@@ -791,11 +791,6 @@ Common enhancements you might want to add:
 ---
   
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the MIT License.
 
 
----
-
-  
-
-**Built with ❤️ using Go and PostgreSQL**
